@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MuASM - Music Assembly Language</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>MuASM</h1>
+            <p class="tagline">An Assembly Language for Music Nerds</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="overview">
+            <h2>Overview</h2>
+            <p>
+                MuASM (Music Assembly Language) is designed for manipulating musical data 
+                and synthesizing sound, with standardized assembly operations alongside 
+                unique, music production oriented instructions.
+            </p>
+            <p>
+                The benefit is making music creation even more math-based for people who 
+                enjoy visually looking at the math of things.
+            </p>
+        </section>
+
+        <section id="features">
+            <h2>Key Features</h2>
+            <ul>
+                <li>Low-level control of sound synthesis</li>
+                <li>Music-oriented instructions like PLAYNOTE, TRANSPOSE, and SETKEY</li>
+                <li>Multiple waveform types (sine, square)</li>
+                <li>Register-based architecture for manipulating musical data</li>
+                <li>Support for key signatures and tempo control</li>
+            </ul>
+        </section>
+
+        <section id="registers">
+            <h2>Registers</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Register</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>R0</td>
+                            <td>General-purpose (default value: 0)</td>
+                        </tr>
+                        <tr>
+                            <td>R1</td>
+                            <td>Tempo control (beats per minute)</td>
+                        </tr>
+                        <tr>
+                            <td>R2</td>
+                            <td>Frequency control (in Hz)</td>
+                        </tr>
+                        <tr>
+                            <td>R3</td>
+                            <td>Note duration (in milliseconds)</td>
+                        </tr>
+                        <tr>
+                            <td>R4</td>
+                            <td>Volume level (0-100 scale)</td>
+                        </tr>
+                        <tr>
+                            <td>R5</td>
+                            <td>Sound wave type (0 = sine, 1 = square, etc.)</td>
+                        </tr>
+                        <tr>
+                            <td>R6-R7</td>
+                            <td>Reserved for sound effects</td>
+                        </tr>
+                        <tr>
+                            <td>R8-R15</td>
+                            <td>General-purpose registers</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="instructions">
+            <h2>Basic Instructions</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Syntax</th>
+                            <th>Functionality</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ADD</td>
+                            <td>ADD R1, R2, R3</td>
+                            <td>Adds R2 and R3; stores result in R1</td>
+                        </tr>
+                        <tr>
+                            <td>SUB</td>
+                            <td>SUB R1, R2, R3</td>
+                            <td>Subtracts R3 from R2; stores result in R1</td>
+                        </tr>
+                        <tr>
+                            <td>MUL</td>
+                            <td>MUL R1, R2, R3</td>
+                            <td>Multiplies R2 and R3; stores result in R1</td>
+                        </tr>
+                        <tr>
+                            <td>MOV</td>
+                            <td>MOV R1, R2</td>
+                            <td>Copies value from R2 to R1</td>
+                        </tr>
+                        <tr>
+                            <td>LDI</td>
+                            <td>LDI R1, imm</td>
+                            <td>Loads an immediate value into R1</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="music-instructions">
+            <h2>Music-Specific Instructions</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>PLAYNOTE</td>
+                            <td>Plays a note with frequency in R2 and duration in R3</td>
+                        </tr>
+                        <tr>
+                            <td>SETKEY</td>
+                            <td>Sets the global key signature to the immediate value (e.g., 0 = C Major, 1 = G Major)</td>
+                        </tr>
+                        <tr>
+                            <td>TRANSPOSE</td>
+                            <td>Transposes the frequency in R2 up or down by the immediate value (in semitones)</td>
+                        </tr>
+                        <tr>
+                            <td>TOGGLEWAV</td>
+                            <td>Changes the waveform type used for sound generation</td>
+                        </tr>
+                        <tr>
+                            <td>DIS</td>
+                            <td>Sets a level of distortion for sounds within the function, on a scale of 0-10</td>
+                        </tr>
+                        <tr>
+                            <td>STOPNOTE</td>
+                            <td>Stops the currently playing note</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="example">
+            <h2>Sample Code</h2>
+            <pre><code># Simple C major scale
+main:
+LDI R2, 261  # C4
+LDI R3, 500  # 500ms duration
+PLAYNOTE R2, R3
+
+TRANSPOSE R2, 2  # D4
+PLAYNOTE R2, R3
+
+TRANSPOSE R2, 2  # E4
+PLAYNOTE R2, R3
+
+TRANSPOSE R2, 1  # F4
+PLAYNOTE R2, R3
+
+TRANSPOSE R2, 2  # G4
+PLAYNOTE R2, R3
+
+TRANSPOSE R2, 2  # A4
+PLAYNOTE R2, R3
+
+TRANSPOSE R2, 2  # B4
+PLAYNOTE R2, R3
+
+TRANSPOSE R2, 1  # C5
+PLAYNOTE R2, R3</code></pre>
+        </section>
+
+        <section id="compiler">
+            <h2>Python Compiler</h2>
+            <p>
+                The MuASM Python compiler translates MuASM code into audio waveforms.
+                Download the compiler from the GitHub repository and follow the installation instructions.
+            </p>
+            <a href="https://github.com/yourusername/muasm" class="button">View on GitHub</a>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 MuASM Project</p>
+        </div>
+    </footer>
+</body>
+</html>
